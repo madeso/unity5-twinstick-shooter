@@ -15,14 +15,18 @@ public class PlayerController : MonoBehaviour {
 	
 	void FixedUpdate ()
 	{
-		var h = this.Relative.right * Input.GetAxis ("Horizontal");
-		var v = this.Relative.forward * Input.GetAxis ("Vertical");
+		var h = this.Relative.right;
+		var v = this.Relative.forward;
 		h.y = 0;
 		v.y = 0;
+		h.Normalize();
+		v.Normalize();
 
-		var move = h + v;
 
 
+		var move = h * Input.GetAxis ("Horizontal") + v * Input.GetAxis ("Vertical");
+
+		move.Normalize ();
 		
 		this.rb.AddForce (move * this.Speed);
 	}
